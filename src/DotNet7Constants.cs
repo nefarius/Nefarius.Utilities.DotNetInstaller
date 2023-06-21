@@ -26,12 +26,12 @@ public static class DotNet7Constants
     /// <summary>
     ///     Desktop Runtime name to check against when enumerating runtimes.
     /// </summary>
-    public const string DesktopRuntimeExpectedName = "Microsoft.WindowsDesktop.App 7.";
+    public const string DesktopRuntimeExpectedNamePrefix = "Microsoft.WindowsDesktop.App 7.";
 
     /// <summary>
     ///     ASP.NET Core Runtime name to check against when enumerating runtimes.
     /// </summary>
-    public const string AspNetCoreRuntimeExpectedName = "Microsoft.AspNetCore.App 7.";
+    public const string AspNetCoreRuntimeExpectedNamePrefix = "Microsoft.AspNetCore.App 7.";
 
     /// <summary>
     ///     Temporary file name to download the setup as.

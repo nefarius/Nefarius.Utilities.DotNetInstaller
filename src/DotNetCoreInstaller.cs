@@ -29,7 +29,7 @@ public static class DotNetCoreInstaller
             return dotnet.ExitCode == 0 &&
                    dotnet.StandardOutput
                        .Split('\n')
-                       .Any(runtime => runtime.Contains(DotNet7Constants.DesktopRuntimeExpectedName));
+                       .Any(runtime => runtime.Contains(DotNet7Constants.DesktopRuntimeExpectedNamePrefix));
         }
         catch
         {
@@ -53,7 +53,7 @@ public static class DotNetCoreInstaller
             return dotnet.ExitCode == 0 &&
                    dotnet.StandardOutput
                        .Split('\n')
-                       .Any(runtime => runtime.Contains(DotNet7Constants.AspNetCoreRuntimeExpectedName));
+                       .Any(runtime => runtime.Contains(DotNet7Constants.AspNetCoreRuntimeExpectedNamePrefix));
         }
         catch
         {
