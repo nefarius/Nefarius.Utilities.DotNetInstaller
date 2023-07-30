@@ -8,20 +8,20 @@ public static class DotNet7Constants
     /// <summary>
     ///     .NET 7 Desktop Runtime direct download link (x64).
     /// </summary>
-    public const string DotNet7X64Url =
-        "https://download.visualstudio.microsoft.com/download/pr/3ebf014d-fcb9-4200-b3fe-76ba2000b027/840f2f95833ce400a9949e35f1581d28/windowsdesktop-runtime-7.0.3-win-x64.exe";
+    public const string DotNet7DesktopX64Url =
+        "https://download.visualstudio.microsoft.com/download/pr/7727acb3-25ca-473b-a392-75afeb33cab7/f11f0477fd2fcfbb3111881377d0c9bb/windowsdesktop-runtime-7.0.9-win-x64.exe";
 
     /// <summary>
     ///     .NET 7 Desktop Runtime direct download link (x86).
     /// </summary>
-    public const string DotNet7X86Url =
-        "https://download.visualstudio.microsoft.com/download/pr/fb8bf100-9e1c-472c-8bc8-aa16fff44f53/8d36f5a56edff8620f9c63c1e73ba88c/windowsdesktop-runtime-7.0.3-win-x86.exe";
+    public const string DotNet7DesktopX86Url =
+        "https://download.visualstudio.microsoft.com/download/pr/139b19d0-2d39-48ce-b59a-aec437509c20/ea6a2711eec53660c3b14d78b9fb2963/windowsdesktop-runtime-7.0.9-win-x86.exe";
 
     /// <summary>
     ///     ASP.NET Core Hosting Bundle direct download link.
     /// </summary>
     public const string AspNetCoreHostingBundleUrl =
-        "https://download.visualstudio.microsoft.com/download/pr/ff197e9e-44ac-40af-8ba7-267d92e9e4fa/d24439192bc549b42f9fcb71ecb005c0/dotnet-hosting-7.0.3-win.exe";
+        "https://download.visualstudio.microsoft.com/download/pr/a1918362-b09b-4593-a4b1-e5f0d9bd68b0/2470e7376871b57867655c057e878800/dotnet-hosting-7.0.9-win.exe";
 
     /// <summary>
     ///     Desktop Runtime name to check against when enumerating runtimes.

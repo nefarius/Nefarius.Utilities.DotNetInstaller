@@ -62,7 +62,7 @@ public static class DotNetCoreInstaller
     }
 
     /// <summary>
-    ///     Downloads and installs .NET Desktop Runtime 7.0.1
+    ///     Downloads and installs .NET Desktop Runtime 7.0
     /// </summary>
     public static async Task DesktopDownloadAndInstall(
         Action<string> progressMessage = default,
@@ -83,7 +83,7 @@ public static class DotNetCoreInstaller
 
             FileStream file = File.Create(targetFile);
             await client.DownloadAsync(
-                Environment.Is64BitOperatingSystem ? DotNet7Constants.DotNet7X64Url : DotNet7Constants.DotNet7X86Url,
+                Environment.Is64BitOperatingSystem ? DotNet7Constants.DotNet7DesktopX64Url : DotNet7Constants.DotNet7DesktopX86Url,
                 file,
                 new Progress<float>(
                     progress =>
