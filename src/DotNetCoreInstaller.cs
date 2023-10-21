@@ -13,6 +13,8 @@ namespace Nefarius.Utilities.DotNetInstaller;
 [SuppressMessage("ReSharper", "UnusedMember.Global")]
 public static class DotNetCoreInstaller
 {
+    private const string AbsoluteDotnetPath = @"C:\Program Files\dotnet\dotnet.exe";
+    
     /// <summary>
     ///     Checks whether the required Desktop Runtime is installed.
     /// </summary>
@@ -20,7 +22,7 @@ public static class DotNetCoreInstaller
     {
         try
         {
-            BufferedCommandResult dotnet = await Cli.Wrap("dotnet")
+            BufferedCommandResult dotnet = await Cli.Wrap(AbsoluteDotnetPath)
                 .WithValidation(CommandResultValidation.None)
                 .WithArguments(builder => builder
                     .Add("--list-runtimes"))
@@ -44,7 +46,7 @@ public static class DotNetCoreInstaller
     {
         try
         {
-            BufferedCommandResult dotnet = await Cli.Wrap("dotnet")
+            BufferedCommandResult dotnet = await Cli.Wrap(AbsoluteDotnetPath)
                 .WithValidation(CommandResultValidation.None)
                 .WithArguments(builder => builder
                     .Add("--list-runtimes"))
@@ -65,10 +67,10 @@ public static class DotNetCoreInstaller
     ///     Downloads and installs .NET Desktop Runtime 7.0
     /// </summary>
     public static async Task DesktopDownloadAndInstall(
-        Action<string> progressMessage = default,
-        Action<double> progressPercent = default,
-        Action<string> logInformation = default,
-        Action<string> logError = default
+        Action<string>? progressMessage = default,
+        Action<double>? progressPercent = default,
+        Action<string>? logInformation = default,
+        Action<string>? logError = default
     )
     {
         string tempDir = FilesHelper.GetTemporaryDirectory();
@@ -116,10 +118,10 @@ public static class DotNetCoreInstaller
     ///     Downloads and installs ASP.NET Core 7.0 Runtime
     /// </summary>
     public static async Task AspNetCoreDownloadAndInstall(
-        Action<string> progressMessage = default,
-        Action<double> progressPercent = default,
-        Action<string> logInformation = default,
-        Action<string> logError = default
+        Action<string>? progressMessage = default,
+        Action<double>? progressPercent = default,
+        Action<string>? logInformation = default,
+        Action<string>? logError = default
     )
     {
         string tempDir = FilesHelper.GetTemporaryDirectory();
