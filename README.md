@@ -8,4 +8,4 @@ Utility classes to download and install modern .NET runtimes.
 
 ## About
 
-WIP
+Offers a couple of utility methods to detect if .NET 7 Desktop or ASP.NET is currently installed. Consumer can then decide to invoke the runtime installers as well.
