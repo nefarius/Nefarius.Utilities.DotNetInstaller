@@ -11,14 +11,51 @@ namespace Nefarius.Utilities.DotNetInstaller;
 ///     Utility class for detecting and installing .NET 7.x from any .NET Standard 2.0 program.
 /// </summary>
 [SuppressMessage("ReSharper", "UnusedMember.Global")]
+[SuppressMessage("ReSharper", "UnusedType.Global")]
 public static class DotNetCoreInstaller
 {
     private const string AbsoluteDotnetPath = @"C:\Program Files\dotnet\dotnet.exe";
-    
+
+    private static readonly Dictionary<DotNetCoreMajorVersion, string> DesktopNamePrefixMap =
+        new()
+        {
+            { DotNetCoreMajorVersion.DotNet7, DotNetConstants.DesktopRuntimeExpectedNamePrefix7 },
+            { DotNetCoreMajorVersion.DotNet8, DotNetConstants.DesktopRuntimeExpectedNamePrefix8 }
+        };
+
+    private static readonly Dictionary<DotNetCoreMajorVersion, string> AspNetNamePrefixMap =
+        new()
+        {
+            { DotNetCoreMajorVersion.DotNet7, DotNetConstants.AspNetCoreRuntimeExpectedNamePrefix7 },
+            { DotNetCoreMajorVersion.DotNet8, DotNetConstants.AspNetCoreRuntimeExpectedNamePrefix8 }
+        };
+
+    private static readonly Dictionary<DotNetCoreMajorVersion, string> VersionDesktopDownloadUrlMapX86 =
+        new()
+        {
+            { DotNetCoreMajorVersion.DotNet7, DotNetConstants.DotNetDesktopX86Url7 },
+            { DotNetCoreMajorVersion.DotNet8, DotNetConstants.DotNetDesktopX86Url8 }
+        };
+
+    private static readonly Dictionary<DotNetCoreMajorVersion, string> VersionDesktopDownloadUrlMapX64 =
+        new()
+        {
+            { DotNetCoreMajorVersion.DotNet7, DotNetConstants.DotNetDesktopX64Url7 },
+            { DotNetCoreMajorVersion.DotNet8, DotNetConstants.DotNetDesktopX64Url8 }
+        };
+
+    private static readonly Dictionary<DotNetCoreMajorVersion, string> VersionAspnetBundleDownloadUrlMap =
+        new()
+        {
+            { DotNetCoreMajorVersion.DotNet7, DotNetConstants.AspNetCoreHostingBundleUrl7 },
+            { DotNetCoreMajorVersion.DotNet8, DotNetConstants.AspNetCoreHostingBundleUrl8 }
+        };
+
     /// <summary>
     ///     Checks whether the required Desktop Runtime is installed.
     /// </summary>
-    public static async Task<bool> IsDesktopRuntimeInstalled()
+    public static async Task<bool> IsDesktopRuntimeInstalled(
+        DotNetCoreMajorVersion version = DotNetCoreMajorVersion.DotNet7)
     {
         try
         {
@@ -31,7 +68,7 @@ public static class DotNetCoreInstaller
             return dotnet.ExitCode == 0 &&
                    dotnet.StandardOutput
                        .Split('\n')
-                       .Any(runtime => runtime.Contains(DotNet7Constants.DesktopRuntimeExpectedNamePrefix));
+                       .Any(runtime => runtime.Contains(DesktopNamePrefixMap[version]));
         }
         catch
         {
@@ -42,7 +79,8 @@ public static class DotNetCoreInstaller
     /// <summary>
     ///     Checks whether the required Desktop Runtime is installed.
     /// </summary>
-    public static async Task<bool> IsAspNetCoreRuntimeInstalled()
+    public static async Task<bool> IsAspNetCoreRuntimeInstalled(
+        DotNetCoreMajorVersion version = DotNetCoreMajorVersion.DotNet7)
     {
         try
         {
@@ -55,7 +93,7 @@ public static class DotNetCoreInstaller
             return dotnet.ExitCode == 0 &&
                    dotnet.StandardOutput
                        .Split('\n')
-                       .Any(runtime => runtime.Contains(DotNet7Constants.AspNetCoreRuntimeExpectedNamePrefix));
+                       .Any(runtime => runtime.Contains(AspNetNamePrefixMap[version]));
         }
         catch
         {
@@ -64,13 +102,14 @@ public static class DotNetCoreInstaller
     }
 
     /// <summary>
-    ///     Downloads and installs .NET Desktop Runtime 7.0
+    ///     Downloads and installs .NET Desktop Runtime.
     /// </summary>
     public static async Task DesktopDownloadAndInstall(
-        Action<string>? progressMessage = default,
-        Action<double>? progressPercent = default,
-        Action<string>? logInformation = default,
-        Action<string>? logError = default
+        DotNetCoreMajorVersion version = DotNetCoreMajorVersion.DotNet7,
+        Action<string>? progressMessage = null,
+        Action<double>? progressPercent = null,
+        Action<string>? logInformation = null,
+        Action<string>? logError = null
     )
     {
         string tempDir = FilesHelper.GetTemporaryDirectory();
@@ -78,14 +117,16 @@ public static class DotNetCoreInstaller
         try
         {
             using HttpClient client = new();
-            string targetFile = Path.Combine(tempDir, DotNet7Constants.LocalSetupFileName);
+            string targetFile = Path.Combine(tempDir, DotNetConstants.LocalSetupFileName);
 
-            progressMessage?.Invoke("Downloading .NET Desktop Runtime 7" +
+            progressMessage?.Invoke("Downloading .NET Desktop Runtime" +
                                     "\n\nThis might take a few seconds depending on your Internet speed");
 
             FileStream file = File.Create(targetFile);
             await client.DownloadAsync(
-                Environment.Is64BitOperatingSystem ? DotNet7Constants.DotNet7DesktopX64Url : DotNet7Constants.DotNet7DesktopX86Url,
+                Environment.Is64BitOperatingSystem
+                    ? VersionDesktopDownloadUrlMapX64[version]
+                    : VersionDesktopDownloadUrlMapX86[version],
                 file,
                 new Progress<float>(
                     progress =>
@@ -94,7 +135,7 @@ public static class DotNetCoreInstaller
                     }));
             file.Dispose();
 
-            progressMessage?.Invoke("Installing .NET Desktop Runtime 7");
+            progressMessage?.Invoke("Installing .NET Desktop Runtime");
 
             CommandResult dotnet = await Cli.Wrap(targetFile)
                 .WithArguments(builder => builder
@@ -106,7 +147,7 @@ public static class DotNetCoreInstaller
 
             logInformation?.Invoke($"dotnet install returned {dotnet.ExitCode}");
 
-            progressMessage?.Invoke(".NET Desktop Runtime 7 installed");
+            progressMessage?.Invoke(".NET Desktop Runtime installed");
         }
         finally
         {
@@ -115,13 +156,14 @@ public static class DotNetCoreInstaller
     }
 
     /// <summary>
-    ///     Downloads and installs ASP.NET Core 7.0 Runtime
+    ///     Downloads and installs ASP.NET Core Runtime
     /// </summary>
     public static async Task AspNetCoreDownloadAndInstall(
-        Action<string>? progressMessage = default,
-        Action<double>? progressPercent = default,
-        Action<string>? logInformation = default,
-        Action<string>? logError = default
+        DotNetCoreMajorVersion version = DotNetCoreMajorVersion.DotNet7,
+        Action<string>? progressMessage = null,
+        Action<double>? progressPercent = null,
+        Action<string>? logInformation = null,
+        Action<string>? logError = null
     )
     {
         string tempDir = FilesHelper.GetTemporaryDirectory();
@@ -129,13 +171,13 @@ public static class DotNetCoreInstaller
         try
         {
             using HttpClient client = new();
-            string targetFile = Path.Combine(tempDir, DotNet7Constants.LocalSetupFileName);
+            string targetFile = Path.Combine(tempDir, DotNetConstants.LocalSetupFileName);
 
-            progressMessage?.Invoke("Downloading ASP.NET Core 7.0 Runtime" +
+            progressMessage?.Invoke("Downloading ASP.NET Core Runtime" +
                                     "\n\nThis might take a few seconds depending on your Internet speed");
 
             FileStream file = File.Create(targetFile);
-            await client.DownloadAsync(DotNet7Constants.AspNetCoreHostingBundleUrl, file,
+            await client.DownloadAsync(VersionAspnetBundleDownloadUrlMap[version], file,
                 new Progress<float>(
                     progress =>
                     {
@@ -143,7 +185,7 @@ public static class DotNetCoreInstaller
                     }));
             file.Dispose();
 
-            progressMessage?.Invoke("Installing ASP.NET Core 7.0 Runtime");
+            progressMessage?.Invoke("Installing ASP.NET Core Runtime");
 
             CommandResult dotnet = await Cli.Wrap(targetFile)
                 .WithArguments(builder => builder
@@ -155,7 +197,7 @@ public static class DotNetCoreInstaller
 
             logInformation?.Invoke($"dotnet install returned {dotnet.ExitCode}");
 
-            progressMessage?.Invoke("ASP.NET Core 7.0 Runtime installed");
+            progressMessage?.Invoke("ASP.NET Core Runtime installed");
         }
         finally
         {
