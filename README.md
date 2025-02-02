@@ -6,4 +6,5 @@ Utility classes to download and install modern .NET runtimes.
 
 ## About
 
-Offers a couple of utility methods to detect if .NET 7 Desktop or ASP.NET is currently installed. Consumer can then decide to invoke the runtime installers as well.
+Offers a couple of utility methods to detect if .NET Desktop or ASP.NET is currently installed. Consumers can then
+decide to invoke the runtime installers as well.
