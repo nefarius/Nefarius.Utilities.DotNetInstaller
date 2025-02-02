@@ -131,13 +131,15 @@ public static class DotNetCoreInstaller
     /// <param name="progressPercent">Optional callback for progress percentage.</param>
     /// <param name="logInformation">Optional callback for informational log messages.</param>
     /// <param name="logError">Optional callback for errors.</param>
+    /// <param name="stoppingToken">An optional <see cref="CancellationToken"/>.</param>
     /// <returns>A <see cref="Task" />.</returns>
     public static async Task DesktopDownloadAndInstall(
         DotNetCoreMajorVersion version = DotNetCoreMajorVersion.DotNet7,
         Action<string>? progressMessage = null,
         Action<double>? progressPercent = null,
         Action<string>? logInformation = null,
-        Action<string>? logError = null
+        Action<string>? logError = null,
+        CancellationToken stoppingToken = default
     )
     {
         string tempDir = FilesHelper.GetTemporaryDirectory();
@@ -160,7 +162,7 @@ public static class DotNetCoreInstaller
                     progress =>
                     {
                         progressPercent?.Invoke(progress);
-                    }));
+                    }), cancellationToken: stoppingToken);
             file.Dispose();
 
             progressMessage?.Invoke("Installing .NET Desktop Runtime");
@@ -198,13 +200,15 @@ public static class DotNetCoreInstaller
     /// <param name="progressPercent">Optional callback for progress percentage.</param>
     /// <param name="logInformation">Optional callback for informational log messages.</param>
     /// <param name="logError">Optional callback for errors.</param>
+    /// <param name="stoppingToken">An optional <see cref="CancellationToken"/>.</param>
     /// <returns>A <see cref="Task" />.</returns>
     public static async Task AspNetCoreDownloadAndInstall(
         DotNetCoreMajorVersion version = DotNetCoreMajorVersion.DotNet7,
         Action<string>? progressMessage = null,
         Action<double>? progressPercent = null,
         Action<string>? logInformation = null,
-        Action<string>? logError = null
+        Action<string>? logError = null,
+        CancellationToken stoppingToken = default
     )
     {
         string tempDir = FilesHelper.GetTemporaryDirectory();
@@ -223,7 +227,7 @@ public static class DotNetCoreInstaller
                     progress =>
                     {
                         progressPercent?.Invoke(progress);
-                    }));
+                    }), cancellationToken: stoppingToken);
             file.Dispose();
 
             progressMessage?.Invoke("Installing ASP.NET Core Runtime");
