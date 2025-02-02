@@ -12,6 +12,10 @@ Utility classes to download and install modern .NET runtimes.
 Offers a couple of utility methods to detect if .NET Desktop or ASP.NET is currently installed. Consumers can then
 decide to invoke the runtime installers as well.
 
+## Documentation
+
+[Link to API docs](./docs/index.md).
+
 ## Sources & 3rd party credits
 
 - [CliWrap](https://github.com/Tyrrrz/CliWrap)
