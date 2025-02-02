@@ -3,7 +3,7 @@
 internal static class HttpClientExtensions
 {
     public static async Task DownloadAsync(this HttpClient client, string requestUri, Stream destination,
-        IProgress<float> progress = null, CancellationToken cancellationToken = default)
+        IProgress<float>? progress = null, CancellationToken cancellationToken = default)
     {
         // Get the http headers first to examine the content length
         using HttpResponseMessage response =
@@ -20,7 +20,7 @@ internal static class HttpClientExtensions
         }
 
         // Convert absolute progress (bytes downloaded) into relative progress (0% - 100%)
-        Progress<long> relativeProgress =
+        Progress<long>? relativeProgress =
             new(totalBytes => progress.Report((float)totalBytes / contentLength.Value));
         // Use extension method to report progress while downloading
         await download.CopyToAsync(destination, 81920, relativeProgress, cancellationToken);

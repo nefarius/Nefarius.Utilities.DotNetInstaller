@@ -113,6 +113,11 @@ public static class DotNetCoreInstaller
     /// <summary>
     ///     Downloads and installs .NET Desktop Runtime.
     /// </summary>
+    /// <param name="version">The desired <see cref="DotNetCoreMajorVersion"/> or <see cref="DotNetCoreMajorVersion.DotNet7"/> by default.</param>
+    /// <param name="progressMessage">Optional callback for informational display messages.</param>
+    /// <param name="progressPercent">Optional callback for progress percentage.</param>
+    /// <param name="logInformation">Optional callback for informational log messages.</param>
+    /// <param name="logError">Optional callback for errors.</param>
     public static async Task DesktopDownloadAndInstall(
         DotNetCoreMajorVersion version = DotNetCoreMajorVersion.DotNet7,
         Action<string>? progressMessage = null,
@@ -158,6 +163,10 @@ public static class DotNetCoreInstaller
 
             progressMessage?.Invoke(".NET Desktop Runtime installed");
         }
+        catch (Exception ex)
+        {
+            logError?.Invoke(ex.Message);
+        }
         finally
         {
             Directory.Delete(tempDir, true);
@@ -167,6 +176,11 @@ public static class DotNetCoreInstaller
     /// <summary>
     ///     Downloads and installs ASP.NET Core Runtime
     /// </summary>
+    /// <param name="version">The desired <see cref="DotNetCoreMajorVersion"/> or <see cref="DotNetCoreMajorVersion.DotNet7"/> by default.</param>
+    /// <param name="progressMessage">Optional callback for informational display messages.</param>
+    /// <param name="progressPercent">Optional callback for progress percentage.</param>
+    /// <param name="logInformation">Optional callback for informational log messages.</param>
+    /// <param name="logError">Optional callback for errors.</param>
     public static async Task AspNetCoreDownloadAndInstall(
         DotNetCoreMajorVersion version = DotNetCoreMajorVersion.DotNet7,
         Action<string>? progressMessage = null,
@@ -207,6 +221,10 @@ public static class DotNetCoreInstaller
             logInformation?.Invoke($"dotnet install returned {dotnet.ExitCode}");
 
             progressMessage?.Invoke("ASP.NET Core Runtime installed");
+        }
+        catch (Exception ex)
+        {
+            logError?.Invoke(ex.Message);
         }
         finally
         {
