@@ -3,6 +3,8 @@
 using CliWrap;
 using CliWrap.Buffered;
 
+using Microsoft.Win32;
+
 using Nefarius.Utilities.DotNetInstaller.Util;
 
 namespace Nefarius.Utilities.DotNetInstaller;
@@ -14,8 +16,6 @@ namespace Nefarius.Utilities.DotNetInstaller;
 [SuppressMessage("ReSharper", "UnusedType.Global")]
 public static class DotNetCoreInstaller
 {
-    private const string AbsoluteDotnetPath = @"C:\Program Files\dotnet\dotnet.exe";
-
     private static readonly Dictionary<DotNetCoreMajorVersion, string> DesktopNamePrefixMap =
         new()
         {
@@ -51,6 +51,15 @@ public static class DotNetCoreInstaller
             { DotNetCoreMajorVersion.DotNet8, DotNetConstants.AspNetCoreHostingBundleUrl8 }
         };
 
+    private static string? GetDotnetPathFromRegistry()
+    {
+        using RegistryKey? key =
+            Registry.LocalMachine.OpenSubKey(@"SOFTWARE\dotnet\Setup\InstalledVersions\x64\sharedhost");
+        string? installPath = key?.GetValue("Path") as string;
+
+        return !string.IsNullOrEmpty(installPath) ? Path.Combine(installPath, "dotnet.exe") : null;
+    }
+
     /// <summary>
     ///     Checks whether the required Desktop Runtime is installed.
     /// </summary>
@@ -59,7 +68,7 @@ public static class DotNetCoreInstaller
     {
         try
         {
-            BufferedCommandResult dotnet = await Cli.Wrap(AbsoluteDotnetPath)
+            BufferedCommandResult dotnet = await Cli.Wrap(GetDotnetPathFromRegistry()!)
                 .WithValidation(CommandResultValidation.None)
                 .WithArguments(builder => builder
                     .Add("--list-runtimes"))
@@ -84,7 +93,7 @@ public static class DotNetCoreInstaller
     {
         try
         {
-            BufferedCommandResult dotnet = await Cli.Wrap(AbsoluteDotnetPath)
+            BufferedCommandResult dotnet = await Cli.Wrap(GetDotnetPathFromRegistry()!)
                 .WithValidation(CommandResultValidation.None)
                 .WithArguments(builder => builder
                     .Add("--list-runtimes"))
