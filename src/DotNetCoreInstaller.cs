@@ -63,6 +63,11 @@ public static class DotNetCoreInstaller
     /// <summary>
     ///     Checks whether the required Desktop Runtime is installed.
     /// </summary>
+    /// <param name="version">
+    ///     The desired <see cref="DotNetCoreMajorVersion" /> or
+    ///     <see cref="DotNetCoreMajorVersion.DotNet7" /> by default.
+    /// </param>
+    /// <returns>A <see cref="Task" /> with <see cref="bool" /> success result.</returns>
     public static async Task<bool> IsDesktopRuntimeInstalled(
         DotNetCoreMajorVersion version = DotNetCoreMajorVersion.DotNet7)
     {
@@ -88,6 +93,11 @@ public static class DotNetCoreInstaller
     /// <summary>
     ///     Checks whether the required Desktop Runtime is installed.
     /// </summary>
+    /// <param name="version">
+    ///     The desired <see cref="DotNetCoreMajorVersion" /> or
+    ///     <see cref="DotNetCoreMajorVersion.DotNet7" /> by default.
+    /// </param>
+    /// <returns>A <see cref="Task" /> with <see cref="bool" /> success result.</returns>
     public static async Task<bool> IsAspNetCoreRuntimeInstalled(
         DotNetCoreMajorVersion version = DotNetCoreMajorVersion.DotNet7)
     {
@@ -113,11 +123,15 @@ public static class DotNetCoreInstaller
     /// <summary>
     ///     Downloads and installs .NET Desktop Runtime.
     /// </summary>
-    /// <param name="version">The desired <see cref="DotNetCoreMajorVersion"/> or <see cref="DotNetCoreMajorVersion.DotNet7"/> by default.</param>
+    /// <param name="version">
+    ///     The desired <see cref="DotNetCoreMajorVersion" /> or
+    ///     <see cref="DotNetCoreMajorVersion.DotNet7" /> by default.
+    /// </param>
     /// <param name="progressMessage">Optional callback for informational display messages.</param>
     /// <param name="progressPercent">Optional callback for progress percentage.</param>
     /// <param name="logInformation">Optional callback for informational log messages.</param>
     /// <param name="logError">Optional callback for errors.</param>
+    /// <returns>A <see cref="Task" />.</returns>
     public static async Task DesktopDownloadAndInstall(
         DotNetCoreMajorVersion version = DotNetCoreMajorVersion.DotNet7,
         Action<string>? progressMessage = null,
@@ -176,11 +190,15 @@ public static class DotNetCoreInstaller
     /// <summary>
     ///     Downloads and installs ASP.NET Core Runtime
     /// </summary>
-    /// <param name="version">The desired <see cref="DotNetCoreMajorVersion"/> or <see cref="DotNetCoreMajorVersion.DotNet7"/> by default.</param>
+    /// <param name="version">
+    ///     The desired <see cref="DotNetCoreMajorVersion" /> or
+    ///     <see cref="DotNetCoreMajorVersion.DotNet7" /> by default.
+    /// </param>
     /// <param name="progressMessage">Optional callback for informational display messages.</param>
     /// <param name="progressPercent">Optional callback for progress percentage.</param>
     /// <param name="logInformation">Optional callback for informational log messages.</param>
     /// <param name="logError">Optional callback for errors.</param>
+    /// <returns>A <see cref="Task" />.</returns>
     public static async Task AspNetCoreDownloadAndInstall(
         DotNetCoreMajorVersion version = DotNetCoreMajorVersion.DotNet7,
         Action<string>? progressMessage = null,
