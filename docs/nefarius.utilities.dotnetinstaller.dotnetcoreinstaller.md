@@ -23,14 +23,19 @@ public static Task AspNetCoreDownloadAndInstall(DotNetCoreMajorVersion version, 
 #### Parameters
 
 `version` [DotNetCoreMajorVersion](./nefarius.utilities.dotnetinstaller.dotnetcoremajorversion.md)<br>
+The desired [DotNetCoreMajorVersion](./nefarius.utilities.dotnetinstaller.dotnetcoremajorversion.md) or [DotNetCoreMajorVersion.DotNet7](./nefarius.utilities.dotnetinstaller.dotnetcoremajorversion.md#dotnet7) by default.
 
 `progressMessage` [Action&lt;String&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.action-1)<br>
+Optional callback for informational display messages.
 
 `progressPercent` [Action&lt;Double&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.action-1)<br>
+Optional callback for progress percentage.
 
 `logInformation` [Action&lt;String&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.action-1)<br>
+Optional callback for informational log messages.
 
 `logError` [Action&lt;String&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.action-1)<br>
+Optional callback for errors.
 
 #### Returns
 
@@ -47,14 +52,19 @@ public static Task DesktopDownloadAndInstall(DotNetCoreMajorVersion version, Act
 #### Parameters
 
 `version` [DotNetCoreMajorVersion](./nefarius.utilities.dotnetinstaller.dotnetcoremajorversion.md)<br>
+The desired [DotNetCoreMajorVersion](./nefarius.utilities.dotnetinstaller.dotnetcoremajorversion.md) or [DotNetCoreMajorVersion.DotNet7](./nefarius.utilities.dotnetinstaller.dotnetcoremajorversion.md#dotnet7) by default.
 
 `progressMessage` [Action&lt;String&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.action-1)<br>
+Optional callback for informational display messages.
 
 `progressPercent` [Action&lt;Double&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.action-1)<br>
+Optional callback for progress percentage.
 
 `logInformation` [Action&lt;String&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.action-1)<br>
+Optional callback for informational log messages.
 
 `logError` [Action&lt;String&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.action-1)<br>
+Optional callback for errors.
 
 #### Returns
 
