@@ -12,12 +12,12 @@ Inheritance [Object](https://docs.microsoft.com/en-us/dotnet/api/system.object) 
 
 ## Methods
 
-### <a id="methods-aspnetcoredownloadandinstall"/>**AspNetCoreDownloadAndInstall(DotNetCoreMajorVersion, Action&lt;String&gt;, Action&lt;Double&gt;, Action&lt;String&gt;, Action&lt;String&gt;)**
+### <a id="methods-aspnetcoredownloadandinstall"/>**AspNetCoreDownloadAndInstall(DotNetCoreMajorVersion, Action&lt;String&gt;, Action&lt;Double&gt;, Action&lt;String&gt;, Action&lt;String&gt;, CancellationToken)**
 
 Downloads and installs ASP.NET Core Runtime
 
 ```csharp
-public static Task AspNetCoreDownloadAndInstall(DotNetCoreMajorVersion version, Action<String> progressMessage, Action<Double> progressPercent, Action<String> logInformation, Action<String> logError)
+public static Task AspNetCoreDownloadAndInstall(DotNetCoreMajorVersion version, Action<String> progressMessage, Action<Double> progressPercent, Action<String> logInformation, Action<String> logError, CancellationToken stoppingToken)
 ```
 
 #### Parameters
@@ -37,17 +37,20 @@ Optional callback for informational log messages.
 
 `logError` [Action&lt;String&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.action-1)<br>
 Optional callback for errors.
+
+`stoppingToken` [CancellationToken](https://docs.microsoft.com/en-us/dotnet/api/system.threading.cancellationtoken)<br>
+An optional [CancellationToken](https://docs.microsoft.com/en-us/dotnet/api/system.threading.cancellationtoken).
 
 #### Returns
 
 A [Task](https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task).
 
-### <a id="methods-desktopdownloadandinstall"/>**DesktopDownloadAndInstall(DotNetCoreMajorVersion, Action&lt;String&gt;, Action&lt;Double&gt;, Action&lt;String&gt;, Action&lt;String&gt;)**
+### <a id="methods-desktopdownloadandinstall"/>**DesktopDownloadAndInstall(DotNetCoreMajorVersion, Action&lt;String&gt;, Action&lt;Double&gt;, Action&lt;String&gt;, Action&lt;String&gt;, CancellationToken)**
 
 Downloads and installs .NET Desktop Runtime.
 
 ```csharp
-public static Task DesktopDownloadAndInstall(DotNetCoreMajorVersion version, Action<String> progressMessage, Action<Double> progressPercent, Action<String> logInformation, Action<String> logError)
+public static Task DesktopDownloadAndInstall(DotNetCoreMajorVersion version, Action<String> progressMessage, Action<Double> progressPercent, Action<String> logInformation, Action<String> logError, CancellationToken stoppingToken)
 ```
 
 #### Parameters
@@ -67,6 +70,9 @@ Optional callback for informational log messages.
 
 `logError` [Action&lt;String&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.action-1)<br>
 Optional callback for errors.
+
+`stoppingToken` [CancellationToken](https://docs.microsoft.com/en-us/dotnet/api/system.threading.cancellationtoken)<br>
+An optional [CancellationToken](https://docs.microsoft.com/en-us/dotnet/api/system.threading.cancellationtoken).
 
 #### Returns
 
