@@ -100,10 +100,16 @@ public static string DotNetDesktopX86Url7;
 public static string DotNetDesktopX86Url8;
 ```
 
-### <a id="fields-localsetupfilename"/>**LocalSetupFileName**
+## Properties
+
+### <a id="properties-localsetupfilename"/>**LocalSetupFileName**
 
 Temporary file name to download the setup as.
 
 ```csharp
-public static string LocalSetupFileName;
+public static string LocalSetupFileName { get; }
 ```
+
+#### Property Value
+
+[String](https://docs.microsoft.com/en-us/dotnet/api/system.string)<br>
