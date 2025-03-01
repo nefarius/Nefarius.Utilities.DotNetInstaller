@@ -2,7 +2,7 @@
 
 Namespace: Nefarius.Utilities.DotNetInstaller
 
-.NET 7 Constants.
+.NET Constants.
 
 ```csharp
 public static class DotNetConstants
