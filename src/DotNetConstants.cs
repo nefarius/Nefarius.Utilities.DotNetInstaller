@@ -57,6 +57,12 @@ public static class DotNetConstants
         "https://download.visualstudio.microsoft.com/download/pr/acf6e5d3-1e2f-4072-833c-fa84a10841c5/acd48342207247f404a5aaa58d1a1ea1/windowsdesktop-runtime-8.0.12-win-x86.exe";
 
     /// <summary>
+    ///     .NET 8 Desktop Runtime direct download link (ARM64).
+    /// </summary>
+    public const string DotNetDesktopARM64Url8 =
+        "https://download.visualstudio.microsoft.com/download/pr/87fb3e9d-aeac-4081-877f-bebee255590e/91660fdf05cd58d1dbecaa3b7f604159/windowsdesktop-runtime-8.0.12-win-arm64.exe";
+    
+    /// <summary>
     ///     ASP.NET Core Hosting Bundle direct download link.
     /// </summary>
     public const string AspNetCoreHostingBundleUrl8 =

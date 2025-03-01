@@ -14,6 +14,7 @@ namespace Nefarius.Utilities.DotNetInstaller;
 /// </summary>
 [SuppressMessage("ReSharper", "UnusedMember.Global")]
 [SuppressMessage("ReSharper", "UnusedType.Global")]
+[SuppressMessage("ReSharper", "InconsistentNaming")]
 public static class DotNetCoreInstaller
 {
     private static readonly Dictionary<DotNetCoreMajorVersion, string> DesktopNamePrefixMap =
@@ -42,6 +43,12 @@ public static class DotNetCoreInstaller
         {
             { DotNetCoreMajorVersion.DotNet7, DotNetConstants.DotNetDesktopX64Url7 },
             { DotNetCoreMajorVersion.DotNet8, DotNetConstants.DotNetDesktopX64Url8 }
+        };
+    
+    private static readonly Dictionary<DotNetCoreMajorVersion, string> VersionDesktopDownloadUrlMapARM64 =
+        new()
+        {
+            { DotNetCoreMajorVersion.DotNet8, DotNetConstants.DotNetDesktopARM64Url8 }
         };
 
     private static readonly Dictionary<DotNetCoreMajorVersion, string> VersionAspnetBundleDownloadUrlMap =
@@ -155,14 +162,16 @@ public static class DotNetCoreInstaller
             FileStream file = File.Create(targetFile);
             await client.DownloadAsync(
                 Environment.Is64BitOperatingSystem
-                    ? VersionDesktopDownloadUrlMapX64[version]
+                    ? ArchitectureInfo.IsArm64
+                        ? VersionDesktopDownloadUrlMapARM64[version]
+                        : VersionDesktopDownloadUrlMapX64[version]
                     : VersionDesktopDownloadUrlMapX86[version],
                 file,
                 new Progress<float>(
                     progress =>
                     {
                         progressPercent?.Invoke(progress);
-                    }), cancellationToken: stoppingToken);
+                    }), stoppingToken);
             file.Dispose();
 
             progressMessage?.Invoke("Installing .NET Desktop Runtime");
