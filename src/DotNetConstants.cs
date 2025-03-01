@@ -1,8 +1,11 @@
-﻿namespace Nefarius.Utilities.DotNetInstaller;
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace Nefarius.Utilities.DotNetInstaller;
 
 /// <summary>
-///     .NET 7 Constants.
+///     .NET Constants.
 /// </summary>
+[SuppressMessage("ReSharper", "InconsistentNaming")]
 public static class DotNetConstants
 {
     /// <summary>
