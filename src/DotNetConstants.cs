@@ -8,7 +8,7 @@ public static class DotNetConstants
     /// <summary>
     ///     Temporary file name to download the setup as.
     /// </summary>
-    public const string LocalSetupFileName = "dotnet-setup.exe";
+    public static string LocalSetupFileName => $"dotnet-setup-{Path.GetTempFileName()}.exe";
 
     #region .NET 7
 
