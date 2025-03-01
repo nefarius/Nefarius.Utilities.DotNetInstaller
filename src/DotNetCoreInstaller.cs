@@ -193,7 +193,14 @@ public static class DotNetCoreInstaller
         }
         finally
         {
-            Directory.Delete(tempDir, true);
+            try
+            {
+                Directory.Delete(tempDir, true);
+            }
+            catch (Exception ex)
+            {
+                logError?.Invoke(ex.Message);
+            }
         }
     }
 
@@ -258,7 +265,14 @@ public static class DotNetCoreInstaller
         }
         finally
         {
-            Directory.Delete(tempDir, true);
+            try
+            {
+                Directory.Delete(tempDir, true);
+            }
+            catch (Exception ex)
+            {
+                logError?.Invoke(ex.Message);
+            }
         }
     }
 }
