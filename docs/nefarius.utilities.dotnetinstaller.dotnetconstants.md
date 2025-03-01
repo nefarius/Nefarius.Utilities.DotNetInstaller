@@ -60,6 +60,14 @@ Desktop Runtime name to check against when enumerating runtimes.
 public static string DesktopRuntimeExpectedNamePrefix8;
 ```
 
+### <a id="fields-dotnetdesktoparm64url8"/>**DotNetDesktopARM64Url8**
+
+.NET 8 Desktop Runtime direct download link (ARM64).
+
+```csharp
+public static string DotNetDesktopARM64Url8;
+```
+
 ### <a id="fields-dotnetdesktopx64url7"/>**DotNetDesktopX64Url7**
 
 .NET 7 Desktop Runtime direct download link (x64).
