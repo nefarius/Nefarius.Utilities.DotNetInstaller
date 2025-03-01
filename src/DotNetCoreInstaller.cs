@@ -80,7 +80,6 @@ public static class DotNetCoreInstaller
             string path = GetDotnetPathFromRegistry() ?? "dotnet.exe";
 
             BufferedCommandResult dotnet = await Cli.Wrap(path)
-                .WithValidation(CommandResultValidation.None)
                 .WithArguments(builder => builder
                     .Add("--list-runtimes"))
                 .ExecuteBufferedAsync();
@@ -112,7 +111,6 @@ public static class DotNetCoreInstaller
             string path = GetDotnetPathFromRegistry() ?? "dotnet.exe";
 
             BufferedCommandResult dotnet = await Cli.Wrap(path)
-                .WithValidation(CommandResultValidation.None)
                 .WithArguments(builder => builder
                     .Add("--list-runtimes"))
                 .ExecuteBufferedAsync();
